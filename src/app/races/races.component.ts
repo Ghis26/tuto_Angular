@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RaceModel } from '../models/race.model';
 
 @Component({
   selector: 'pr-races',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./races.component.css']
 })
 export class RacesComponent implements OnInit {
+  public races: Array<RaceModel>;
 
   constructor() { }
 
   ngOnInit() {
+    this.races = [{ name: 'Lyon' }, { name: 'London' }];
   }
-
 }
