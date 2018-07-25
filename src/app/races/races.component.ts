@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RaceModel } from '../models/race.model';
 import { RaceService } from '../race.service';
+import { Observable } from '../../../node_modules/rxjs';
 
 @Component({
   selector: 'pr-races',
@@ -9,10 +10,10 @@ import { RaceService } from '../race.service';
 })
 export class RacesComponent implements OnInit {
   public races: Array<RaceModel>;
-
+  public valueTemp: Observable<Array<String>>;
   constructor(private service: RaceService) { }
 
   ngOnInit() {
-    this.races = this.service.list();
+    this.service.list().subscribe(races => this.races = races);
   }
 }
