@@ -11,6 +11,8 @@ import { PonyComponent } from './pony/pony.component';
 import { FromNowPipe } from './from-now.pipe';
 import { ROUTES } from './app.routes';
 import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '../../node_modules/@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { HomeComponent } from './home/home.component';
     RaceComponent,
     PonyComponent,
     FromNowPipe,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    ReactiveFormsModule
   ],
   providers: [PonyComponent],
   bootstrap: [AppComponent]
