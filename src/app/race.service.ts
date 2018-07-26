@@ -8,10 +8,10 @@ import { Observable } from '../../node_modules/rxjs';
 })
 export class RaceService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   list(): Observable<Array<RaceModel>> {
-    return this.http.get<Array<RaceModel>>(`http://ponyracer.ninja-squad.com/api/races?status=PENDING`);
+    const params = { status: 'PENDING' };
+    return this.http.get<Array<RaceModel>>('http://ponyracer.ninja-squad.com/api/races', { params });
   }
 }
