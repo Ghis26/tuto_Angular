@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RaceModel } from '../models/race.model';
 import { RaceService } from '../race.service';
-import { Observable } from '../../../node_modules/rxjs';
 
 @Component({
   selector: 'pr-races',
@@ -10,7 +9,6 @@ import { Observable } from '../../../node_modules/rxjs';
 })
 export class RacesComponent implements OnInit {
   public races: Array<RaceModel>;
-  public valueTemp: Observable<Array<String>>;
   constructor(private service: RaceService) { }
 
   ngOnInit() {
