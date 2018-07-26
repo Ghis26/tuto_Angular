@@ -17,7 +17,6 @@ export class RaceComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.ponyComp.ponyClicked.subscribe((click: any) => {this.click = click; console.log(click); });
+    this.ponyComp.ponyClicked.subscribe((click: any) => this.click = click);
   }
-
 }
