@@ -1,1 +1,1 @@
-{"pack":"29","id":15,"title":"Logged home","specs":[{"name":"src/app/home/home.component.spec.ts","hash":"4228af79628563140c1783e64387cf8cb3d7f089"},{"name":"src/app/menu/menu.component.spec.ts","hash":"206d4042b7351c3b984b701cbaf4f7c1df44ffd0"}]}
+{"pack":"29","id":16,"title":"Remember me","specs":[{"name":"src/app/user.service.spec.ts","hash":"11ff851d171a1114ea77d43eb81051ce3d7e4899"}]}
