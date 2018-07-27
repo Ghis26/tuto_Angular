@@ -9,7 +9,7 @@
      <ul class="navbar-nav mr-auto">
       <div class="nav navbar-nav">
         <li class="nav-item">
-          <a  routerLink='races' class="nav-link">Races</a>
+          <a routerLink='races' class="nav-link" *ngIf="user != null">Races</a>
         </li>
         <span class="nav-item navbar-text mr-2" *ngIf="user != null">
           {{ user.login }}
