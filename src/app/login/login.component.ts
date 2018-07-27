@@ -21,7 +21,7 @@ authenticationFailed: boolean = false;
 
   authenticate(){
     this.userService.authenticate(this.credentials).subscribe(
-      () => this.router.navigate(['/']),
+      () => {this.router.navigate(['/'])},
       () => this.authenticationFailed = true
     );
   }

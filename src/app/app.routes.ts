@@ -1,4 +1,4 @@
-import { Routes } from '../../node_modules/@angular/router';
+import { Routes } from '@angular/router';
 import { RacesComponent } from './races/races.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';

@@ -12,7 +12,7 @@ import { FromNowPipe } from './from-now.pipe';
 import { ROUTES } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { ReactiveFormsModule, FormsModule } from '../../node_modules/@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
