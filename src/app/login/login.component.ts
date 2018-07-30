@@ -8,20 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-credentials : any = {
-"login": '',
-"password": ''
+credentials: any = {
+'login': '',
+'password': ''
 };
-authenticationFailed: boolean = false;
+authenticationFailed: boolean;
 
-  constructor(private userService : UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  authenticate(){
+  authenticate() {
     this.userService.authenticate(this.credentials).subscribe(
-      () => {this.router.navigate(['/'])},
+      () => {this.router.navigate(['/']); },
       () => this.authenticationFailed = true
     );
   }

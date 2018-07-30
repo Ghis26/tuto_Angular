@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userEventsSubscription = this.userService.userEvents.subscribe((user) => this.user = user)
+    this.userEventsSubscription = this.userService.userEvents.subscribe((user) => this.user = user);
   }
 
   ngOnDestroy(): void {
