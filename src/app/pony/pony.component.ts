@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PonyModel } from '../models/pony.model';
+import { BetComponent } from '../bet/bet.component';
 
 @Component({
   selector: 'pr-pony',
@@ -8,10 +9,10 @@ import { PonyModel } from '../models/pony.model';
 })
 
 export class PonyComponent implements OnInit {
- @Output() ponyClicked = new EventEmitter<PonyModel>();
+ @Output() ponyClicked = new EventEmitter();
  @Input() ponyModel: PonyModel;
 
-  constructor() { }
+  constructor(private bet: BetComponent) { }
 
   ngOnInit() {
   }
@@ -21,6 +22,6 @@ export class PonyComponent implements OnInit {
   }
 
   clicked() {
-      this.ponyClicked.emit(this.ponyModel);
+      return this.ponyClicked.emit(this.bet.betOnPony(this.ponyModel));
   }
 }

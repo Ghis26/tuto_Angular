@@ -1,5 +1,5 @@
 export interface PonyModel {
-    id: Number;
+    id: number;
     name: String;
     color: String;
 }

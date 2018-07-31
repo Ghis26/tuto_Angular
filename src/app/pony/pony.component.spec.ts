@@ -13,7 +13,7 @@ describe('PonyComponent', () => {
 
   it('should have method to get the image URL', () => {
     // given a pony component with a PURPLE pony
-    const ponyComponent: PonyComponent = new PonyComponent();
+    const ponyComponent: PonyComponent = new PonyComponent(undefined);
     ponyComponent.ponyModel = { id: 1, name: 'Fast Rainbow', color: 'PURPLE' };
 
     // when we call the method for the URL

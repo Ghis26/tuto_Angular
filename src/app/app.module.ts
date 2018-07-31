@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { JWTInterceptorService } from './jwtinterceptor.service';
+import { BetComponent } from './bet/bet.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { JWTInterceptorService } from './jwtinterceptor.service';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
+    BetComponent,
 
   ],
   imports: [
@@ -41,7 +43,8 @@ import { JWTInterceptorService } from './jwtinterceptor.service';
   { provide: HTTP_INTERCEPTORS,
     useExisting: JWTInterceptorService,
     multi: true
-  }],
+  },
+BetComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
