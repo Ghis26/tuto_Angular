@@ -27,6 +27,7 @@
     "moment": "2.22.2",
     "popper.js": "^1.12.9",
     "rxjs": "6.1.0",
+    "webstomp-client": "1.2.0",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
