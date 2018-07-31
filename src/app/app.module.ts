@@ -16,6 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { JWTInterceptorService } from './jwtinterceptor.service';
 import { BetComponent } from './bet/bet.component';
+import { LiveComponent } from './live/live.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { BetComponent } from './bet/bet.component';
     RegisterComponent,
     LoginComponent,
     BetComponent,
+    LiveComponent,
 
   ],
   imports: [

@@ -3,3 +3,7 @@ export interface PonyModel {
     name: String;
     color: String;
 }
+
+export interface PonyWithPositionModel extends PonyModel {
+   position: number;
+}

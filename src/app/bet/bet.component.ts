@@ -11,29 +11,33 @@ import { PonyModel } from '../models/pony.model';
 })
 export class BetComponent implements OnInit {
   raceModel: RaceModel;
-  private id :number;
-  betFailed : boolean = false;
+  private id: number;
+  betFailed = false;
 
-  constructor(private route : ActivatedRoute, private raceService : RaceService ) { }
+  constructor(private route: ActivatedRoute, private raceService: RaceService ) { }
 
   ngOnInit() {
   this.id = this.route.snapshot.params.raceId;
   this.raceService.get(this.id).subscribe((res) => {
-      console.log(res);
       this.raceModel = res;
     });
   }
 
   betOnPony(pony: PonyModel) {
-
-       return this.raceService.bet(this.id, pony.id).subscribe(
-         (raceModel) => {
-          this.raceModel = raceModel;
-         }, ()=> this.betFailed = true);
+    if (pony.id === this.raceModel.betPonyId) {
+      return this.raceService.cancelBet(this.raceModel.id).subscribe(
+        () => this.raceModel.betPonyId = null,
+        () => this.betFailed = true);
+      } else {
+    return this.raceService.bet(this.id, pony.id).subscribe(
+      (raceModel) => {
+      this.raceModel = raceModel;
+      }, () => this.betFailed = true);
+    }
   }
 
   isPonySelected(pony: PonyModel) {
-     if (pony.id == this.raceModel.betPonyId){
+     if (pony.id === this.raceModel.betPonyId) {
       return true;
     } else {
       return false;

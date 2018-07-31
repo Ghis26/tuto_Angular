@@ -11,6 +11,7 @@ import { BetComponent } from '../bet/bet.component';
 export class PonyComponent implements OnInit {
  @Output() ponyClicked = new EventEmitter();
  @Input() ponyModel: PonyModel;
+ @Input() isRunning: boolean;
 
   constructor(private bet: BetComponent) { }
 
@@ -18,7 +19,16 @@ export class PonyComponent implements OnInit {
   }
 
   getPonyImageUrl() {
-   return `assets/images/pony-${this.ponyModel.color.toLowerCase()}.gif`;
+    if (this.ponyModel) {
+      if (this.isRunning === true) {
+      return `assets/images/pony-${this.ponyModel.color.toLowerCase()}-running.gif`;
+      } else {
+      return `assets/images/pony-${this.ponyModel.color.toLowerCase()}.gif`;
+      }
+   } else {
+     console.log('PonyModel is empty');
+     return null;
+   }
   }
 
   clicked() {
