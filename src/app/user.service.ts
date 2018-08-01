@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { UserModel } from './models/user.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
 import { environment } from '../environments/environment';
-import { JWTInterceptorService } from './jwtinterceptor.service';
+import { UserModel } from './models/user.model';
+import { JwtInterceptorService } from './jwt-interceptor.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-userEvents = new BehaviorSubject<UserModel>(undefined);
-user: UserModel;
 
-  constructor(private http: HttpClient, private jwtInterceptor: JWTInterceptorService) {
+  public userEvents = new BehaviorSubject<UserModel>(undefined);
+
+  constructor(private http: HttpClient, private jwtInterceptorService: JwtInterceptorService) {
     this.retrieveUser();
   }
 
@@ -24,13 +25,13 @@ user: UserModel;
 
   authenticate(credentials: { login: string; password: string }): Observable<UserModel> {
     return this.http.post<UserModel>(`${environment.baseUrl}/api/users/authentication`, credentials).pipe(
-   tap((user: UserModel) => this.storeLoggedInUser(user))
+      tap(user => this.storeLoggedInUser(user))
     );
   }
 
   storeLoggedInUser(user: UserModel) {
     window.localStorage.setItem('rememberMe', JSON.stringify(user));
-    this.jwtInterceptor.setJwtToken(user.token);
+    this.jwtInterceptorService.setJwtToken(user.token);
     this.userEvents.next(user);
   }
 
@@ -38,16 +39,15 @@ user: UserModel;
     const value = window.localStorage.getItem('rememberMe');
     if (value) {
       const user = JSON.parse(value);
-      this.jwtInterceptor.setJwtToken(user.token);
+      this.jwtInterceptorService.setJwtToken(user.token);
       this.userEvents.next(user);
-    } else {
-      this.user = null;
     }
   }
 
   logout() {
     this.userEvents.next(null);
-    localStorage.removeItem('rememberMe');
-    this.jwtInterceptor.removeJwtToken();
+    window.localStorage.removeItem('rememberMe');
+    this.jwtInterceptorService.removeJwtToken();
   }
+
 }

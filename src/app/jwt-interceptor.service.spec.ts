@@ -1,11 +1,11 @@
 import { HttpHandler, HttpRequest } from '@angular/common/http';
 
-import { JWTInterceptorService } from './jwtinterceptor.service';
+import { JwtInterceptorService } from './jwt-interceptor.service';
 
 describe('JwtInterceptorService', () => {
 
   it('should do nothing if no jwt token', () => {
-    const jwtService = new JWTInterceptorService();
+    const jwtService = new JwtInterceptorService();
     const req = new HttpRequest('GET', '/');
     const next = jasmine.createSpyObj('HttpHandler', ['handle']) as HttpHandler;
 
@@ -16,7 +16,7 @@ describe('JwtInterceptorService', () => {
   });
 
   it('should set a jwt token', () => {
-    const jwtService = new JWTInterceptorService();
+    const jwtService = new JwtInterceptorService();
     const req = new HttpRequest('GET', '/');
     const next = jasmine.createSpyObj('HttpHandler', ['handle']) as HttpHandler;
 
@@ -29,7 +29,7 @@ describe('JwtInterceptorService', () => {
   });
 
   it('should remove a jwt token', () => {
-    const jwtService = new JWTInterceptorService();
+    const jwtService = new JwtInterceptorService();
     const req = new HttpRequest('GET', '/');
     const next = jasmine.createSpyObj('HttpHandler', ['handle']) as HttpHandler;
 

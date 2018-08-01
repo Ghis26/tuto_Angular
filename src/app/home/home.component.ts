@@ -1,6 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { UserModel } from '../models/user.model';
 import { UserService } from '../user.service';
-import { Subscription } from '../../../node_modules/rxjs';
 
 @Component({
   selector: 'pr-home',
@@ -8,17 +10,19 @@ import { Subscription } from '../../../node_modules/rxjs';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public userEventsSubscription: Subscription;
-  public user: any;
 
-  constructor(private userService: UserService) { }
+  user: UserModel;
+  userEventsSubscription: Subscription;
 
-  ngOnInit() {
-    this.userEventsSubscription = this.userService.userEvents.subscribe((user) => this.user = user);
+  constructor(private userService: UserService) {
   }
 
-  ngOnDestroy(): void {
-    if (this.userEventsSubscription != null) {
+  ngOnInit() {
+    this.userEventsSubscription = this.userService.userEvents.subscribe(user => this.user = user);
+  }
+
+  ngOnDestroy() {
+    if (this.userEventsSubscription) {
       this.userEventsSubscription.unsubscribe();
     }
   }

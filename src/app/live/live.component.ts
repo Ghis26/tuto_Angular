@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription} from 'rxjs';
+
 import { RaceService } from '../race.service';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
 import { RaceModel } from '../models/race.model';
 import { PonyWithPositionModel } from '../models/pony.model';
-import { Subscription } from 'rxjs';
+import { filter, switchMap, tap } from '../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'pr-live',
@@ -11,22 +13,41 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./live.component.css']
 })
 export class LiveComponent implements OnInit, OnDestroy {
-  raceModel: RaceModel;
-  private id: number;
-  poniesWithPosition: Array<PonyWithPositionModel>;
-  positionSubscription: Subscription;
 
-  constructor( private raceService: RaceService, private route: ActivatedRoute) { }
+  raceModel: RaceModel;
+  poniesWithPosition: Array<PonyWithPositionModel> = [];
+  positionSubscription: Subscription;
+  error : Boolean;
+  winners: Array<PonyWithPositionModel>;
+  betWon: Boolean;
+
+  constructor(private raceService: RaceService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-  this.id = this.route.snapshot.params.raceId;
-  this.raceService.get(this.id).subscribe(
-     (res) => this.raceModel = res
-   );
-  this.positionSubscription = this.raceService.live(this.id).subscribe(res => this.poniesWithPosition = res);
+    const id = +this.route.snapshot.paramMap.get('raceId');
+    this.raceService.get(id).pipe(
+      tap((race: RaceModel) => this.raceModel = race),
+      filter(data => data.status != 'FINISHED'),
+      switchMap(race => this.raceService.live(id))
+    ).subscribe(
+      positions => {
+        this.poniesWithPosition = positions;
+        this.raceModel.status = 'RUNNING';
+      },
+      error => this.error = true,
+      () => {
+        this.raceModel.status = 'FINISHED';
+        this.winners = this.poniesWithPosition.filter(pony => pony.position >= 100);
+        this.betWon = this.winners.some(pony => pony.id === this.raceModel.betPonyId);
+      }
+    );
   }
 
-  ngOnDestroy(): void {
-    this.positionSubscription.unsubscribe();
+  ngOnDestroy() {
+    if (this.positionSubscription) {
+      this.positionSubscription.unsubscribe();
+    }
   }
+
 }

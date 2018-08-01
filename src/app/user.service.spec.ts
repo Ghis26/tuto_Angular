@@ -2,13 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { UserService } from './user.service';
-import { JWTInterceptorService } from './jwtinterceptor.service';
+import { JwtInterceptorService } from './jwt-interceptor.service';
 
 describe('UserService', () => {
 
   let userService: UserService;
   let http: HttpTestingController;
-  let jwtInterceptorService: JWTInterceptorService;
+  let jwtInterceptorService: JwtInterceptorService;
 
   const user = {
     id: 1,
@@ -25,7 +25,7 @@ describe('UserService', () => {
   beforeEach(() => {
     userService = TestBed.get(UserService);
     http = TestBed.get(HttpTestingController);
-    jwtInterceptorService = TestBed.get(JWTInterceptorService);
+    jwtInterceptorService = TestBed.get(JwtInterceptorService);
   });
 
   it('should register a user', () => {

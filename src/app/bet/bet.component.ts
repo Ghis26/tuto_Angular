@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RaceModel } from '../models/race.model';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 import { RaceService } from '../race.service';
+import { RaceModel } from '../models/race.model';
 import { PonyModel } from '../models/pony.model';
 
 @Component({
@@ -10,37 +11,31 @@ import { PonyModel } from '../models/pony.model';
   styleUrls: ['./bet.component.css']
 })
 export class BetComponent implements OnInit {
+
   raceModel: RaceModel;
-  private id: number;
   betFailed = false;
 
-  constructor(private route: ActivatedRoute, private raceService: RaceService ) { }
+  constructor(private raceService: RaceService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-  this.id = this.route.snapshot.params.raceId;
-  this.raceService.get(this.id).subscribe((res) => {
-      this.raceModel = res;
-    });
+    const raceId = +this.route.snapshot.paramMap.get('raceId');
+    this.raceService.get(raceId)
+      .subscribe(race => this.raceModel = race);
   }
 
   betOnPony(pony: PonyModel) {
-    if (pony.id === this.raceModel.betPonyId) {
-      return this.raceService.cancelBet(this.raceModel.id).subscribe(
-        () => this.raceModel.betPonyId = null,
-        () => this.betFailed = true);
-      } else {
-    return this.raceService.bet(this.id, pony.id).subscribe(
-      (raceModel) => {
-      this.raceModel = raceModel;
-      }, () => this.betFailed = true);
+    if (!this.isPonySelected(pony)) {
+      this.raceService.bet(this.raceModel.id, pony.id)
+        .subscribe(race => this.raceModel = race, () => this.betFailed = true);
+    } else {
+      this.raceService.cancelBet(this.raceModel.id)
+        .subscribe(() => this.raceModel.betPonyId = null, () => this.betFailed = true);
     }
   }
 
   isPonySelected(pony: PonyModel) {
-     if (pony.id === this.raceModel.betPonyId) {
-      return true;
-    } else {
-      return false;
-    }
+    return pony.id === this.raceModel.betPonyId;
   }
+
 }

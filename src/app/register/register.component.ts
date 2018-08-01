@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   confirmPasswordCtrl: FormControl;
   birthYearCtrl: FormControl;
   userForm: FormGroup;
+  passwordForm: FormGroup;
 
   static passwordMatch(control: FormGroup) {
     const password = control.get('password').value;
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit {
     this.loginCtrl = this.fb.control('', [Validators.required, Validators.minLength(3)]);
     this.passwordCtrl = this.fb.control('', Validators.required);
     this.confirmPasswordCtrl = this.fb.control('', Validators.required);
-    this.fb.group({
+    this.passwordForm = this.fb.group({
       password: this.passwordCtrl,
       confirmPassword: this.confirmPasswordCtrl
     }, {
@@ -44,8 +45,7 @@ export class RegisterComponent implements OnInit {
     ]);
     this.userForm = this.fb.group({
       login: this.loginCtrl,
-      passwordForm: this.passwordCtrl,
-      passwordCtrlForm: this.confirmPasswordCtrl,
+      passwordForm: this.passwordForm,
       birthYear: this.birthYearCtrl
     });
   }
@@ -60,4 +60,5 @@ export class RegisterComponent implements OnInit {
       () => this.registrationFailed = true
     );
   }
+
 }

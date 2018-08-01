@@ -1,20 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { RacesComponent } from './races/races.component';
 import { RaceComponent } from './race/race.component';
 import { PonyComponent } from './pony/pony.component';
 import { FromNowPipe } from './from-now.pipe';
-import { ROUTES } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { JWTInterceptorService } from './jwtinterceptor.service';
+import { JwtInterceptorService } from './jwt-interceptor.service';
 import { BetComponent } from './bet/bet.component';
 import { LiveComponent } from './live/live.component';
 
@@ -30,23 +30,19 @@ import { LiveComponent } from './live/live.component';
     RegisterComponent,
     LoginComponent,
     BetComponent,
-    LiveComponent,
-
+    LiveComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    RouterModule,
-    RouterModule.forRoot(ROUTES),
+    FormsModule,
     ReactiveFormsModule,
-    FormsModule
+    HttpClientModule,
+    RouterModule.forRoot(ROUTES)
   ],
-  providers: [PonyComponent,
-  { provide: HTTP_INTERCEPTORS,
-    useExisting: JWTInterceptorService,
-    multi: true
-  },
-BetComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
