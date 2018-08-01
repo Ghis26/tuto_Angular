@@ -53,7 +53,11 @@ export class UserService {
     this.jwtInterceptorService.removeJwtToken();
   }
 
-   scoreUpdates(userId: number): Observable<UserModel>{
+   scoreUpdates(userId: number): Observable<UserModel> {
    return this.wsService.connect(`${environment.wsBaseUrl}/player/${userId}`);
    }
+
+   isLoggedIn(): boolean {
+    return !!window.localStorage.getItem('rememberMe');
+  }
 }

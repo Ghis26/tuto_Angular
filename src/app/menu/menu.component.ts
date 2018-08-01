@@ -24,7 +24,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userEventsSubscription = this.userService.userEvents.pipe(
       switchMap(user => user ?
-        concat(of(user),  this.userService.scoreUpdates(user.id).pipe(catchError(() => EMPTY))):
+        concat(of(user),  this.userService.scoreUpdates(user.id).pipe(catchError(() => EMPTY))) :
         of(null)
       ))
     .subscribe(userWithScore => this.user = userWithScore);
