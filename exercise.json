@@ -1,1 +1,1 @@
-{"pack":"29","id":22,"title":"WebSockets","specs":[{"name":"src/app/race.service.spec.ts","hash":"b5511bc47f117118e45cf5ef696579e38ffd44e3"},{"name":"src/app/ws.service.spec.ts","hash":"c637e0e3c9b64412b9adaac86031abd33a0176f7"}]}
+{"pack":"29","id":25,"title":"Reactive user score","specs":[{"name":"src/app/menu/menu.component.spec.ts","hash":"7ca5a7840642a88e365995ade108d5c06ba7377b"},{"name":"src/app/user.service.spec.ts","hash":"57522ea1f1f364de9292b155944ebabd78864b3c"}]}

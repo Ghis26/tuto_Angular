@@ -34,9 +34,13 @@ export class RaceService {
 
   live(raceId: number): Observable<Array<PonyWithPositionModel>> {
     return this.wsService.connect<LiveRaceModel>(`/race/${raceId}`).pipe(
-      map(liveRace => liveRace.ponies),
-      takeWhile(() => status == 'FINISHED')
+      takeWhile(liveRace => status !== 'FINISHED'),
+      map(liveRace => liveRace.ponies)
     );
+  }
+
+  boost(raceId: number, ponyId: number) {
+    return this.http.post(`${environment.baseUrl}/api/races/${raceId}/boosts`, { ponyId });
   }
 
 }
